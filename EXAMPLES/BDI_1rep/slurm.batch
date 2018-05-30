@@ -1,0 +1,98 @@
+#!/bin/sh
+#set a job name
+#SBATCH --job-name=BDI1rep
+
+#a file for the output so you can check on the progress:
+#SBATCH --output=run1.out
+
+##SBATCH --exclude=compute-0-106,compute-0-103,compute-0-107,compute-0-109,compute-0-102
+
+#a file for errors from the job:
+#SBATCH --error=run1.err
+
+#time that you think you need in hh:mm:ss
+#SBATCH --time 19:49:00
+
+#number of tasks that you are requesting:
+#SBATCH -n 1
+#SBATCH --exclusive
+
+#Partition to use:
+#SBATCH --partition=ser-par-10g-3
+
+##SBATCH --exclude=compute-0-106
+##SBATCH --exclude=compute-0-103
+
+#number of nodes to distribute accross:
+#SBATCH -N 1 
+###SBATCH --exclude=compute-0-106
+##SBATCH --exclude=compute-0-103
+
+
+#SBATCH --mail-type=ALL 
+#SBATCH --mail-user=cyrildgg@gmail.com
+work=/home/cyrilg/Para/4PBA0hrs_1
+
+cd $SLURM_SUBMIT_DIR
+
+
+file="iter.dat"
+#if [ ! -f "$file" ]
+#       iter=`cat iter.dat`
+#       echo "input iteration is"$iter
+#then
+#       echo "iter.dat not found"
+#       $iter=1
+#fi
+
+if [ -e $file ]
+then
+    echo "ok"
+    iter=`cat iter.dat`
+    echo "input iteration is"$iter
+else
+    echo "iter.dat not found"
+    iter=1
+fi
+
+
+
+
+#module load openmpi-1.8.3
+#module load mpich-3.0.4
+#module load mpich-3.0.4
+#module load platform-mpi
+module load python-3.5.2
+
+python  infer_sde_serial.py
+
+#cp -rp out.dat OUTPUT/out-$iter.dat
+#cp -rp run1.out OUTPUT/run1-$iter.dat
+
+#increment the counter and update the file
+#iter=`expr $iter + 1`
+#echo "new iteration is "$iter
+
+#write new iteration to file:
+#rm iter.dat
+#echo $iter >> iter.dat
+
+date=`date`
+echo "job completed at"$date
+
+#if [ $iter -lt 20 ]
+#then
+#sbatch --dependency=afterany:$SLURM_JOBID slurm.batch
+#else
+#echo "done with iter > 10"
+#fi
+
+
+#SBATCH --dependency=afterany:$SLURM_JOBID slurm.batch
+
+
+
+
+
+
+

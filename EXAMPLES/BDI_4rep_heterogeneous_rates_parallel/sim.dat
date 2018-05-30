@@ -1,0 +1,11 @@
+Equation_sim BDI
+Error_model_sim Normal
+Nrep_sim 4
+Rate_variation_model_sim None
+param_sim [2.75e-4,2.75e-5,3.0e-5,3.0e-6,5.0e-5,5.0e-6]
+error_sim [7.5]
+Rate_heterogeneity_model_sim Heterogeneous
+Error_heterogeneity_model_sim Homogeneous
+X0_sim [413]
+Ntime_sim 120
+T_sim 40000

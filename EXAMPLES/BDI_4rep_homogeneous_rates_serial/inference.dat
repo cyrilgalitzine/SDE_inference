@@ -1,0 +1,15 @@
+Simulate_data 0
+Equation BDI
+Ndisc 1
+Error_model Normal
+Nsamp 12000000000
+Npart 1000
+param [kd=3.0e-4,kf=3.0e-5,gamma=5.0e-5]
+param_infer [1,1,1]
+param_error [sigma_error1=4,sigma_error2=4,sigma_error3=4,sigma_error4=4]
+param_error_infer [1,1,1,1]
+Rate_heterogeneity_model Homogeneous
+Error_heterogeneity_model Homogeneous
+sd_MH 0.1
+MH_step_scaling exponential
+output_freq 20
